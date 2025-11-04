@@ -60,11 +60,7 @@ constexpr size_t RPS_COUNTOF(T const (&)[Count]) noexcept
 #define RPS_COUNTOF(arr) (sizeof(arr) / sizeof(arr[0]))
 #endif
 
-#define RPS_UNUSED(x)       \
-    do                      \
-    {                       \
-        (void)sizeof(!(x)); \
-    } while (0)
+#define RPS_UNUSED(x) (void)(x)
 
 #if RPS_HAS_NODISCARD
 #define RPS_NO_DISCARD [[nodiscard]]
