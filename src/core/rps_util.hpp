@@ -1095,9 +1095,13 @@ namespace rps
         template <typename... Args>
         void ConstructElements(T* pElements, size_t count, Args&&... args)
         {
-            std::for_each(pElements, pElements + count, [&](auto& elem) {
-                std::allocator_traits<AllocatorT>::construct(m_Allocator, &elem, std::forward<Args>(args)...);
-            });
+			for (size_t i = 0; i < count; ++i)
+			{
+				std::allocator_traits<AllocatorT>::construct(
+					m_Allocator,
+					pElements + i,
+					std::forward<Args>(args)...);
+			}
         }
 
         void DestructElements(T* pElements, size_t count)
