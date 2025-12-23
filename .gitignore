@@ -27,3 +27,5 @@
 !/docs/tutorial
 !/docs/faq.md
 /tests/imported/tmp
+.idea/
+cmake-build-*/
