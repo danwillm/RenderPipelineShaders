@@ -9,15 +9,17 @@ cmake_minimum_required(VERSION 3.12.1)
 
 # setting cache variables and options should never overwrite normal variables;
 # otherwise, user settings set before including rps as a subdirectory can be overwritten.
-cmake_policy(SET CMP0126 NEW)
+# cmake_policy(SET CMP0126 NEW)
 cmake_policy(SET CMP0077 NEW)
 
 option( RpsBuildTests "Enable unit test targets" ON )
 option( RpsBuildTools "Enable tool targets" ON )
 option( RpsBuildExamples "Enable example targets" ON )
 option( RpsEnableVulkan "Enable Vulkan backend" ON )
+option( RpsEnableD3D "Enable DirectX" ON )
 option( RpsEnableImGui "Enable ImGui" ON)
 option( RpsEnableDXAgilitySDK "Enable DX12 Agility SDK" OFF )
+option( RpsForceVulkan "Force Enable Vulkan" OFF )
 option( RpsPackagingIncludeStaticLibs "Include prebuilt static libs during packaging" OFF )
 option( RpsEnableDefaultDeviceImpl "Enable default allocator & printer support" ON )
 
@@ -38,6 +40,12 @@ set( RpsRootSolutionFolder "" CACHE STRING "Root IDE solution folder" )
 set( RpsImGui_DIR "${PROJECT_SOURCE_DIR}/external/imgui" CACHE STRING "ImGui source directory" )
 set( RpsDXC_DIR "" CACHE STRING "The specified directory is expected to contain dxcompiler.dll and dxil.dll" )
 
+if( RpsForceVulkan )
+    set(Vulkan_INCLUDE_DIR "../../external/vulkan/include")
+    include_directories("../../external/vulkan/include")
+    set(Vulkan_FOUND 1)
+endif ( )
+
 if ( "${CMAKE_GENERATOR_PLATFORM}" STREQUAL "Arm64" )
     set( RpsEnableVulkan OFF )
 endif ( )
@@ -48,6 +56,10 @@ endif ( )
 
 if ( RpsEnableVulkan )
     find_package( Vulkan 1.2 )
+endif ( )
+
+if ( Vulkan_FOUND )
+    message("VULKAN FOUND")
 endif ( )
 
 if ( NOT WIN32 )
@@ -465,7 +477,10 @@ BuildFolderProperty( "modules" ModuleFolder )
 AddModule( rps ${PROJECT_SOURCE_DIR}/include "${ModuleFolder}" "" "" "${CompileDefinitions}" INTERFACE "" )
 
 add_subdirectory( src )
-add_subdirectory( external )
+
+if( RpsBuildTests OR RpsBuildTools )
+    add_subdirectory( external )
+endif ( )
 
 if ( RpsBuildTests )
     add_subdirectory( "${CMAKE_CURRENT_SOURCE_DIR}/tests" )
