@@ -11,7 +11,7 @@ AddModule( rps_core "${CMAKE_CURRENT_SOURCE_DIR}/core" "${AppFolder}" "" "" "" S
 AddModule( rps_frontend "${CMAKE_CURRENT_SOURCE_DIR}/frontend" "${AppFolder}" "" "" "" STATIC "rps_core" )
 AddModule( rps_runtime "${CMAKE_CURRENT_SOURCE_DIR}/runtime/common" "${AppFolder}" "" "" "" STATIC "rps_core" )
 
-if ( WIN32 )
+if ( WIN32 AND RpsEnableD3D )
     AddModule( rps_runtime_d3d11 "${CMAKE_CURRENT_SOURCE_DIR}/runtime/d3d11" "${AppFolder}" "" "" "" STATIC "rps_core;rps_runtime" )
     AddModule( rps_runtime_d3d12 "${CMAKE_CURRENT_SOURCE_DIR}/runtime/d3d12" "${AppFolder}" "" "" "" STATIC "rps_core;rps_runtime" )
     if (RpsEnableDXAgilitySDK)
