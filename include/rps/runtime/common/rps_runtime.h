@@ -1491,8 +1491,8 @@ namespace rps
         ///
         /// @param semantic                 Semantic for the semantic attribute.
         /// @param semanticIndex            Index at which to define this semantic.
-        constexpr ParamAttrList(RpsSemantic semantic, uint32_t semanticIndex = 0)
-            : RpsParamAttr{{RPS_ACCESS_UNKNOWN, RPS_SHADER_STAGE_NONE}, {semantic, semanticIndex}}
+        constexpr ParamAttrList(RpsSemantic rpsSemantic, uint32_t rpsSemanticIndex = 0)
+            : RpsParamAttr{{RPS_ACCESS_UNKNOWN, RPS_SHADER_STAGE_NONE}, {rpsSemantic, rpsSemanticIndex}}
         {
         }
 

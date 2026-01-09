@@ -443,9 +443,9 @@ namespace rps
     /// @ingroup RpsAccessAttr
     struct AccessAttr : public RpsAccessAttr
     {
-        constexpr AccessAttr(RpsAccessFlags      accessFlags  = RPS_ACCESS_UNKNOWN,
+        constexpr AccessAttr(RpsAccessFlags      rpsAccessFlags  = RPS_ACCESS_UNKNOWN,
                              RpsShaderStageFlags shaderStages = RPS_SHADER_STAGE_NONE)
-            : RpsAccessAttr{accessFlags, shaderStages}
+            : RpsAccessAttr{rpsAccessFlags, shaderStages}
         {
         }
         constexpr AccessAttr(const RpsAccessAttr& attr)
@@ -462,8 +462,8 @@ namespace rps
     /// @brief C++ helper type for RpsSemanticAttr.
     struct SemanticAttr : public RpsSemanticAttr
     {
-        constexpr SemanticAttr(RpsSemantic semantic, uint32_t semanticIndex = 0)
-            : RpsSemanticAttr{semantic, semanticIndex}
+        constexpr SemanticAttr(RpsSemantic rpsSemantic, uint32_t rpsSemanticIndex = 0)
+            : RpsSemanticAttr{rpsSemantic, rpsSemanticIndex}
         {
         }
         constexpr SemanticAttr(const RpsSemanticAttr& attr)

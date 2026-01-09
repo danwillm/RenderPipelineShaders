@@ -45,12 +45,12 @@ namespace rps
     struct ParameterDesc : public RpsParameterDesc
     {
     public:
-        ParameterDesc(RpsTypeInfo          typeInfo,
+        ParameterDesc(RpsTypeInfo          rpsTypeInfo,
                       const ParamAttrList* inAttrs     = nullptr,
                       const char*          inName      = nullptr,
                       RpsParameterFlags    inFlags     = RPS_PARAMETER_FLAG_NONE,
                       uint32_t             inArraySize = 0)
-            : RpsParameterDesc{typeInfo, inArraySize, inAttrs, inName, inFlags}
+            : RpsParameterDesc{rpsTypeInfo, inArraySize, inAttrs, inName, inFlags}
         {
         }
 
