@@ -5,17 +5,17 @@
 //
 // See file LICENSE.txt for full license details.
 
-#if defined(RPS_SHADER_GUEST)
+#if defined(RPS_SHADER_GUEST) || defined(RPS_PLUGIN_NODE_DLL)
 
 typedef unsigned int  uint32_t;
 typedef unsigned char uint8_t;
 
-#endif  //RPS_SHADER_GUEST
+#endif  // defined(RPS_SHADER_GUEST || defined(RPS_PLUGIN_NODE_DLL)
 
 #define RPS_RPSL_INTERFACE_DECL \
     RPSL_RETURN() 
 
-#if defined(RPS_SHADER_GUEST) || defined(RPS_SHADER_HOST)
+#if defined(RPS_SHADER_GUEST) || defined(RPS_SHADER_HOST) || defined(RPS_PLUGIN_NODE_DLL)
 
 #ifdef _WIN32
 #define RPS_EXPORT __declspec(dllexport)
@@ -79,9 +79,9 @@ typedef struct ___rpsl_runtime_procs
 
 typedef int (*PFN_rps_dyn_lib_init)(const ___rpsl_runtime_procs* pProcs, uint32_t sizeofProcs);
 
-#endif  // defined(RPS_SHADER_GUEST) || defined(RPS_SHADER_HOST)
+#endif  // defined(RPS_SHADER_GUEST) || defined(RPS_SHADER_HOST)  || defined(RPS_PLUGIN_NODE_DLL)
 
-#if defined(RPS_SHADER_GUEST)
+#if defined(RPS_SHADER_GUEST) || defined(RPS_PLUGIN_NODE_DLL)
 
 static ___rpsl_runtime_procs s_rpslRuntimeProcs;
 
@@ -222,7 +222,7 @@ int RPS_EXPORT ___rps_dyn_lib_init(const ___rpsl_runtime_procs* pProcs, uint32_t
     return 0;
 }
 
-#endif  //RPS_SHADER_GUEST
+#endif  //defined(RPS_SHADER_GUEST) || defined(RPS_PLUGIN_NODE_DLL)
 
 // clang-format off
 

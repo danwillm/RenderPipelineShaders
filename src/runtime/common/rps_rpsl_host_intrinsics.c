@@ -96,6 +96,8 @@ RpsResult RpslHostCallEntry(PFN_RpslEntry pfnEntry, uint32_t numArgs, const void
     return result;
 }
 
+#if !defined(RPS_PLUGIN_NODE_DLL)
+
 void ___rpsl_abort(uint32_t errorCode)
 {
     RpslAbortIfFail(errorCode);
@@ -175,9 +177,12 @@ void ___rpsl_notify_out_param_resources(uint32_t paramId, uint8_t* pViews)
     RpslAbortIfFail(RpslNotifyOutParamResources(paramId, (void*)pViews));
 }
 
+
 #define RPS_SHADER_HOST 1
 
 #include "rps_rpsl_host_dll.c"
+
+#endif
 
 // DXIL Intrinsics
 // TODO: Generate from hctdb
@@ -299,6 +304,12 @@ enum DXILOpCode
     Unpack4x8 = 219,  // unpacks 4 8-bit signed or unsigned values into int32 or int16 vector
 };
 
+uint32_t RpslHostReverseBits32(uint32_t value);
+uint32_t RpslHostCountBits(uint32_t value);
+uint32_t RpslHostFirstBitLow(uint32_t value);
+uint32_t RpslHostFirstBitHigh(uint32_t value);
+
+#if !defined(RPS_PLUGIN_NODE_DLL)
 uint32_t ___rpsl_dxop_binary_i32(uint32_t op, uint32_t a, uint32_t b)
 {
     switch (op)
@@ -319,11 +330,6 @@ uint32_t ___rpsl_dxop_binary_i32(uint32_t op, uint32_t a, uint32_t b)
     ___rpsl_abort(RPS_ERROR_NOT_IMPLEMENTED);
     return 0;
 }
-
-uint32_t RpslHostReverseBits32(uint32_t value);
-uint32_t RpslHostCountBits(uint32_t value);
-uint32_t RpslHostFirstBitLow(uint32_t value);
-uint32_t RpslHostFirstBitHigh(uint32_t value);
 
 uint32_t ___rpsl_dxop_unary_i32(uint32_t op, uint32_t a)
 {
@@ -471,6 +477,9 @@ float ___rpsl_dxop_tertiary_f32(uint32_t op, float a, float b, float c)
     return 0;
 }
 
+#endif
+
+#if !defined(RPS_PLUGIN_NODE_DLL)
 RpsResult rpsRpslDynamicLibraryInit(PFN_rpslDynLibInit pfn_dynLibInit)
 {
     ___rpsl_runtime_procs procs;
@@ -497,3 +506,4 @@ RpsResult rpsRpslDynamicLibraryInit(PFN_rpslDynLibInit pfn_dynLibInit)
 
     return RPS_OK;
 }
+#endif
