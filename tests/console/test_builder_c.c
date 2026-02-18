@@ -7,7 +7,7 @@
 
 #include "utils/rps_test_common.h"
 
-RpsResult buildRenderToTexture(RpsRenderGraphBuilder cmdBuf, const RpsConstant* ppArgs, uint32_t numArgs)
+RpsResult buildRenderToTexture(RpsRenderGraphBuilder cmdBuf, void* pUserContext, const RpsConstant* ppArgs, uint32_t numArgs)
 {
     typedef struct PrivateUpdateInfo
     {

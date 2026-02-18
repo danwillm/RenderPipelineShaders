@@ -335,12 +335,14 @@ typedef RpsFlags32 RpsNodeFlags;
 /// @brief Signature of functions for render graph building.
 ///
 /// @param hBuilder                             Handle to the render graph builder to use.
+/// @param pUserContext                         User context for function
 /// @param pArgs                                Pointer to an array of <c><i>RpsConstant</i></c> with numArgs constant
 ///                                             arguments to use for building. Must not be NULL if numArgs != 0.
 /// @param numArgs                              Number of constant arguments to use for building.
 ///
 /// @returns                                    Result code of the operation. See <c><i>RpsResult</i></c> for more info.
 typedef RpsResult (*PFN_rpsRenderGraphBuild)(RpsRenderGraphBuilder hBuilder,
+                                             void*                 pUserContext,
                                              const RpsConstant*    pArgs,
                                              uint32_t              numArgs);
 
@@ -379,6 +381,7 @@ typedef struct RpsRenderGraphUpdateInfo
     /// Pointer to a function for starting a user-defined render graph building process. Passing NULL uses the default
     /// one.
     PFN_rpsRenderGraphBuild pfnBuildCallback;
+    void*                   pBuildCallbackUserContext;
 
     /// Pointer to a random number generator. Only required if any randomized behavior is used, e.g.
     /// RPS_SCHEDULE_RANDOM_ORDER_BIT.

@@ -210,7 +210,7 @@ namespace rps
             if (updateInfo.pfnBuildCallback)
             {
                 buildResult =
-                    updateInfo.pfnBuildCallback(rps::ToHandle(&m_builder), paramPtrs.data(), paramPtrs.size());
+                    updateInfo.pfnBuildCallback(rps::ToHandle(&m_builder), updateInfo.pBuildCallbackUserContext, paramPtrs.data(), paramPtrs.size());
             }
             else
             {

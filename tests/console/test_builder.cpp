@@ -21,11 +21,11 @@ typedef struct PrivateUpdateInfo
     RpsBool  bUseMSAA;
 } PrivateUpdateInfo;
 
-RpsResult buildRenderToTexture(RpsRenderGraphBuilder hBuilder, const RpsConstant* ppArgs, uint32_t numArgs);
+RpsResult buildRenderToTexture(RpsRenderGraphBuilder hBuilder, void* pUserContext, const RpsConstant* ppArgs, uint32_t numArgs);
 
 }  // extern "C"
 
-RpsResult buildRenderToTextureCpp(RpsRenderGraphBuilder hBuilder, const RpsConstant* ppArgs, uint32_t numArgs)
+RpsResult buildRenderToTextureCpp(RpsRenderGraphBuilder hBuilder, void* pUserContext, const RpsConstant* ppArgs, uint32_t numArgs)
 {
     using namespace rps;
 
